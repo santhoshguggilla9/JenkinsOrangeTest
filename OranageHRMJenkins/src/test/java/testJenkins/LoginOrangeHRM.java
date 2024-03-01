@@ -6,8 +6,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class LoginOrangeHRM {
@@ -15,15 +18,28 @@ public class LoginOrangeHRM {
 	WebDriver driver=null;
 	String url="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
 	
+	@Parameters("browser")
 	@BeforeClass
-	public void setup() throws InterruptedException
+	public void setup(String browser) 
 	{
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-	
+		if(browser.equalsIgnoreCase("edge"))
+		{
+			driver = new EdgeDriver();
+			driver.manage().window().maximize();
+		}
+		else if(browser.equalsIgnoreCase("chrome"))
+		{
+			driver = new ChromeDriver();
+			driver.manage().window().maximize();
+		}
+		else if(browser.equalsIgnoreCase("firefox"))
+		{
+			driver = new FirefoxDriver();
+			driver.manage().window().maximize();
+		}
 	}
 	@Test
-	public void loginOrange() throws InterruptedException
+	public void loginOrange() 
 	{
 		driver.get(url);
 		
